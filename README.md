@@ -1,24 +1,35 @@
 # README
+Vue.jsによるTODOアプリ
+AWS上にデプロイ
+特定の契機でRails側との非同期通信を行いDBにデータを格納する
+Vuetifyでデザインする
+下記に実装済み機能を〇、未実装機能を△に記す
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# AWS
 
-Things you may want to cover:
+## 開発環境
+- Ruby 2.6.3
+- rails 6.0.2.2
+- vue.js 2.6.11
+- vuetify 2.2.20
 
-* Ruby version
+- RDBMS
+  - Production
+    - MariaDB 5.5.64
+  - development
+    - sqlite3 1.3.13
 
-* System dependencies
+- Web Server
+  - Apache 2.4.41
 
-* Configuration
 
-* Database creation
+## 機能
+- 〇ユーザのCRUD機能(新規作成、編集、削除、一覧、検索)
+- 〇ユーザ一覧のページネーション機能(kaminari)
+- 〇TODO検索のインクリメントサーチ機能
+- 〇TODOのCRUD機能(新規作成、削除、更新、一覧)
+- 〇TODOの並び替え機能
+- 〇ログイン・ログアウト機能
+- 〇ログイン状況に応じた表示切替
+- 〇テスト機能(Rspecで実装)
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
