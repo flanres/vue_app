@@ -52,7 +52,9 @@
       >
         <v-text-field
           :append-icon-cb="() => {}"
-          placeholder="Search TODO..."
+          placeholder="Input TODO..."
+          v-model="newItemTitle"
+          v-on:keyup.enter="addTodo(newItemTitle)"
           single-line
           append-icon="mdi-magnify"
           color="white"
@@ -62,33 +64,30 @@
     </v-app-bar>
 
 <v-content id="app">
-  <p>
-  <input type="text"
-    placeholder="TODOを入力"
-    v-model="newItemTitle"
-    v-on:keyup.enter="addTodo(newItemTitle)">
-  </p>
-
-  <v-container fluid fill-height>
+  <v-container fluid>
   <v-row
-    justify="center"
-    align="center"
+    justify="start"
+    align="start"
   >
-
-  <ul>
-    <li v-for="item in todo_items" :key="item.title">
-      <label v-bind:class="{ done: item.isChecked }">
-        <input type="checkbox" v-model="item.isChecked"> {{ item.title }}
+    <v-list-item v-for="item in todo_items" :key="item.title">
+      <v-list-item-content>
+      <v-list-item-title>
+      <label v-bind:class="{ done:item.isChecked }">
+        <input type="checkbox" v-model="item.isChecked" v-on:change="saveTodo"> {{ item.title }}
       </label>
-    </li>
-  </ul>
 
+        <!--v-checkbox
+          v-model= "item.isChecked"
+          :label = "item.title"
+          v-bind:class="{ done:item.isChecked }"
+          v-on:change="saveTodo"
+        ></v-checkbox-->
+      </v-list-item-title>
+      </v-list-item-content>
+    </v-list-item>
   </v-row>
-        <!--v-layout wrap>
-          <v-flex xs12 sm6 md4>コンテンツ</v-flex>
-          <v-flex xs12 sm6 md4>コンテンツ</v-flex>
-          <v-flex xs12 sm6 md4>コンテンツ</v-flex>
-        </v-layout-->
+
+  <v-btn color="red" v-on:click="deleteTodo()">チェック項目を削除</v-btn>
   </v-container>
 </v-content>
 
@@ -122,10 +121,9 @@
         ],
 
         todo_items: [
-            { title: 'test1', isChecked: true },
-            { title: 'test2', isChecked: true },
-            { title: 'test3', isChecked: false },
-            { title: 'test4', isChecked: false },
+            { title: 'todo1', isChecked: true },
+            { title: 'todo2', isChecked: true },
+            { title: 'todo3', isChecked: false },
         ],
         newItemTitle: ''
       }
@@ -138,7 +136,35 @@
           isChecked: false
         });
         this.newItemTitle = ''; //追加
+        this.saveTodo(); //ブラウザに保存
       },
+
+      deleteTodo: function(){
+        this.todo_items = this.todo_items.filter(function (item) {
+          return item.isChecked === false; //
+        });
+        this.saveTodo(); //ブラウザに保存
+      },
+
+      saveTodo: function(){
+        localStorage.setItem('todo_items', JSON.stringify(this.todo_items));
+      },
+
+      loadTodo: function(){
+        this.todo_items = JSON.parse( localStorage.getItem('todo_items') );
+        if( !this.todo_items ){
+          this.todo_items = [];
+        }
+      },
+    },
+
+    // 初期表示
+    mounted: function(){
+      this.loadTodo();
     },
   }
 </script>
+
+<style>
+  .done { text-decoration: line-through; }
+</style>
