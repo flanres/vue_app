@@ -25,7 +25,7 @@
           </v-list-item-title>
         </v-list-item-content>
         </v-list-item>
-        <v-subheader class="mt-4 grey--text text--darken-1">INFO</v-subheader>
+        <v-subheader class="mt-4 grey--text text--darken-1">Information</v-subheader>
       </v-list>
     </v-navigation-drawer>
 
@@ -91,8 +91,25 @@
   </v-container>
 </v-content>
 
-<v-footer color="red" dark app>
-  Vuetify
+<v-footer
+  color="red"
+  padless
+>
+  <v-row
+    justify="center"
+    align="center"
+  >
+    <v-btn
+      v-for="link in links"
+      :key="link"
+      color="white"
+      text
+      rounded
+      class="my-2"
+    >
+      {{ link }}
+    </v-btn>
+  </v-row>
 </v-footer>
 
   </v-app>
@@ -115,6 +132,7 @@
       return {
         drawer: null,
         items: [
+          { text: 'LOG IN' },
           { text: '新着' },
           { text: '優先度' },
           { text: '自分の物だけ' },
@@ -125,7 +143,13 @@
             { title: 'todo2', isChecked: true },
             { title: 'todo3', isChecked: false },
         ],
-        newItemTitle: ''
+        newItemTitle: '',
+
+        links: [
+          'Home',
+          'Git Hub',
+          'developer Blog',
+        ],
       }
     },
 
