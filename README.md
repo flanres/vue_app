@@ -20,7 +20,10 @@ Vuetifyでデザインする
     - sqlite3 1.3.13
 
 - Web Server
-  - Apache 2.4.41
+  - Nginx 1.16.1
+  
+- Application Server
+  - Unicorn 5.5.4
 
 
 ## 機能
