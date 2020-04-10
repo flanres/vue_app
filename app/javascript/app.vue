@@ -1,4 +1,12 @@
 <template>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
   <v-app id="inspire">
     <v-navigation-drawer
       v-model="drawer"
@@ -53,46 +61,45 @@
       </v-row>
     </v-app-bar>
 
-    <v-content>
-      <v-container class="fill-height">
-        <v-row
-          justify="center"
-          align="center"
-        >
-          <v-col class="shrink">
-            <v-tooltip right>
-              <template v-slot:activator="{ on }">
-                <v-btn
-                  :href="source"
-                  icon
-                  large
-                  target="_blank"
-                  v-on="on"
-                >
-                  <v-icon large>mdi-code-tags</v-icon>
-                </v-btn>
-              </template>
-              <span>Source</span>
-            </v-tooltip>
-            <v-tooltip right>
-              <template v-slot:activator="{ on }">
-                <v-btn
-                  icon
-                  large
-                  href="https://codepen.io/johnjleider/pen/aezMOO"
-                  target="_blank"
-                  v-on="on"
-                >
-                  <v-icon large>mdi-codepen</v-icon>
-                </v-btn>
-              </template>
-              <span>Codepen</span>
-            </v-tooltip>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-content>
+<v-content id="app">
+  <p>
+  <input type="text"
+    placeholder="TODOを入力"
+    v-model="newItemTitle"
+    v-on:keyup.enter="addTodo(newItemTitle)">
+  </p>
+
+  <v-container fluid fill-height>
+  <v-row
+    justify="center"
+    align="center"
+  >
+
+  <ul>
+    <li v-for="item in todo_items" :key="item.title">
+      <label v-bind:class="{ done: item.isChecked }">
+        <input type="checkbox" v-model="item.isChecked"> {{ item.title }}
+      </label>
+    </li>
+  </ul>
+
+  </v-row>
+        <!--v-layout wrap>
+          <v-flex xs12 sm6 md4>コンテンツ</v-flex>
+          <v-flex xs12 sm6 md4>コンテンツ</v-flex>
+          <v-flex xs12 sm6 md4>コンテンツ</v-flex>
+        </v-layout-->
+  </v-container>
+</v-content>
+
+<v-footer color="red" dark app>
+  Vuetify
+</v-footer>
+
   </v-app>
+</body>
+
+</html>
 </template>
 
 <script>
@@ -100,16 +107,38 @@
     props: {
       source: String,
     },
-    data: () => ({
-      drawer: null,
-      items: [
-        { text: '新着' },
-        { text: '優先度' },
-        { text: '自分の物だけ' },
-      ],
-    }),
+
     created () {
       this.$vuetify.theme.dark = true
+    },
+
+    data: function () {
+      return {
+        drawer: null,
+        items: [
+          { text: '新着' },
+          { text: '優先度' },
+          { text: '自分の物だけ' },
+        ],
+
+        todo_items: [
+            { title: 'test1', isChecked: true },
+            { title: 'test2', isChecked: true },
+            { title: 'test3', isChecked: false },
+            { title: 'test4', isChecked: false },
+        ],
+        newItemTitle: ''
+      }
+    },
+
+    methods: {
+      addTodo: function(newTitle){
+        this.todo_items.push({
+          title: newTitle,
+          isChecked: false
+        });
+        this.newItemTitle = ''; //追加
+      },
     },
   }
 </script>
