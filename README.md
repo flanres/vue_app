@@ -1,9 +1,10 @@
 # README
-Vue.jsによるTODOアプリ
-AWS上にデプロイ
-特定の契機でRails側との非同期通信を行いDBにデータを格納する
-Vuetifyでデザインする
-静的解析(rubocop)を導入する
+Vue.jsによるTODOアプリ  
+AWS上にデプロイ  
+特定の契機でRails側との非同期通信を行いDBにデータを格納する  
+Vuetifyでデザインする  
+静的解析(rubocop)を導入する  
+Issuesで課題管理を行いPull requestsにて改修する
 下記に実装済み機能を〇、未実装機能を△に記す
 
 # AWS
