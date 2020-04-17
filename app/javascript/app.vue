@@ -53,8 +53,8 @@
         <v-text-field
           :append-icon-cb="() => {}"
           placeholder="Input TODO..."
-          v-model="newItemTitle"
-          v-on:keyup.enter="addTodo(newItemTitle)"
+          v-model="newTask"
+          v-on:keyup.enter="createTask(newTask)"
           single-line
           append-icon="mdi-magnify"
           color="white"
@@ -69,13 +69,15 @@
     justify="start"
     align="start"
   >
-    <v-list-item v-for="item in todo_items" :key="item.title">
+    <v-list-item v-for="(task, index) in tasks" :key="task.name">
       <v-list-item-content>
       <v-list-item-title>
-      <label v-bind:class="{ done:item.isChecked }">
-        <input type="checkbox" v-model="item.isChecked" v-on:change="saveTodo"> {{ item.title }}
+      <label v-bind:class="{ done:task.is_done }">
+        <input type="checkbox" v-model="task.is_done" v-on:change="updateTask(task.id, index)">
+        <span v-bind:class="{done: task.is_done}">{{ task.name }}</span>
       </label>
 
+      <v-btn color="red" v-on:click="deleteTask(task.id, index)">削除</v-btn>
         <!--v-checkbox
           v-model= "item.isChecked"
           :label = "item.title"
@@ -87,7 +89,6 @@
     </v-list-item>
   </v-row>
 
-  <v-btn color="red" v-on:click="deleteTodo()">チェック項目を削除</v-btn>
   </v-container>
 </v-content>
 
@@ -119,6 +120,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
   export default {
     props: {
       source: String,
@@ -138,12 +141,8 @@
           { text: '自分の物だけ' },
         ],
 
-        todo_items: [
-            { title: 'todo1', isChecked: true },
-            { title: 'todo2', isChecked: true },
-            { title: 'todo3', isChecked: false },
-        ],
-        newItemTitle: '',
+        tasks: [],
+        newTask: '',
 
         links: [
           'Home',
@@ -154,6 +153,49 @@
     },
 
     methods: {
+      createTask: function(newTitle){
+        // テキストボックスが空の場合はreturnして終了
+        if(this.newTask== '') return;
+
+        // apiへ追加リクエスト
+        axios.post('/api/tasks', { task: { name: this.newTask} }).then((response) => {
+          this.tasks.unshift(response.data);
+          this.newTask= '';
+        }, (error) => {
+          console.log(error, response);
+        });
+      },
+
+      readTask: function(){
+        // apiへ取得リクエスト
+        axios.get('/api/tasks').then((response) => {
+          for(let i = 0; i < response.data.tasks.length; i++) {
+            this.tasks.push(response.data.tasks[i]);
+          }
+        }, (error) => {
+          console.log(error, response);
+        });
+      },
+
+      updateTask: function(task_id){
+        // apiへ更新リクエスト
+        axios.put('/api/tasks/' + task_id).then((response) => {
+        }, (error) => {
+          console.log(error);
+        });
+      },
+
+      deleteTask: function(task_id, index){
+        // apiへ削除リクエスト
+        axios.delete('/api/tasks/' + task_id).then((response) => {
+          this.tasks.splice(index, 1);
+        }, (error) => {
+          console.log(error, response);
+        });
+      },
+
+      // ブラウザのみで動作させる場合のメソッド
+      /*
       addTodo: function(newTitle){
         this.todo_items.push({
           title: newTitle,
@@ -180,11 +222,12 @@
           this.todo_items = [];
         }
       },
+      */
     },
 
     // 初期表示
     mounted: function(){
-      this.loadTodo();
+      this.readTask();
     },
   }
 </script>
