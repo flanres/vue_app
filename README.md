@@ -3,6 +3,7 @@ Vue.jsによるTODOアプリ
 AWS上にデプロイ
 特定の契機でRails側との非同期通信を行いDBにデータを格納する
 Vuetifyでデザインする
+静的解析(rubocop)を導入する
 下記に実装済み機能を〇、未実装機能を△に記す
 
 # AWS
@@ -20,16 +21,27 @@ Vuetifyでデザインする
     - sqlite3 1.3.13
 
 - Web Server
-  - Apache 2.4.41
+  - Nginx 1.16.1
+  
+- Application Server
+  - Unicorn 5.5.4
 
+- static analysis tool
+  - rubocop (0.76.0)
+  - rubocop-airbnb (3.0.2)
+  - rubocop-performance (1.5.2)
+  - rubocop-rails (2.3.2)
+  - rubocop-rspec (1.30.1)
 
 ## 機能
-- 〇ユーザのCRUD機能(新規作成、編集、削除、一覧、検索)
-- 〇ユーザ一覧のページネーション機能(kaminari)
-- 〇TODO検索のインクリメントサーチ機能
+- 〇Vuetifyによるデザイン
+- 〇rubocopによる静的解析導入
+- △ユーザのCRUD機能(新規作成、編集、削除、一覧、検索)
+- △ユーザ一覧のページネーション機能
+- △TODO検索のインクリメントサーチ機能
 - 〇TODOのCRUD機能(新規作成、削除、更新、一覧)
-- 〇TODOの並び替え機能
-- 〇ログイン・ログアウト機能
-- 〇ログイン状況に応じた表示切替
+- △TODOの並び替え機能
+- △ログイン・ログアウト機能
+- △ログイン状況に応じた表示切替
 - 〇テスト機能(Rspecで実装)
 
