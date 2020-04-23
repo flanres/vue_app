@@ -4,6 +4,7 @@ Vue.jsによるTODOアプリ
 AWS上にデプロイする  
 特定の契機でRails側との非同期通信を行いDBにデータを格納する  
 Vuetifyでデザインする  
+LOGINしない場合はブラウザのLocalstrageにデータを格納しTODOを作成する  
 静的解析(rubocop)を導入する  
 Issuesで課題管理を行いPull requestsにて改修する  
 本番環境はproductionブランチにて運用する  
@@ -42,6 +43,7 @@ Rails側はAPI作成する
 - 〇APIの作成
 - 〇rubocopによる静的解析導入
 - 〇axiosによる非同期通信処理の実装
+- 〇LOGINの有無による表示ページの切り替え(Vueコンポーネント)
 - △ユーザのCRUD機能(新規作成、編集、削除、一覧、検索)
 - △ユーザ一覧のページネーション機能
 - △TODO検索のインクリメントサーチ機能
