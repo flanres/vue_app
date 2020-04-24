@@ -17,7 +17,7 @@
         <v-list-item
           v-for="item in items"
           :key="item.text"
-          link
+          :to="item.link"
         >
         <v-list-item-content>
           <v-list-item-title>
@@ -76,12 +76,6 @@
         <input type="checkbox" v-model="item.isChecked" v-on:change="saveTodo"> {{ item.title }}
       </label>
 
-        <!--v-checkbox
-          v-model= "item.isChecked"
-          :label = "item.title"
-          v-bind:class="{ done:item.isChecked }"
-          v-on:change="saveTodo"
-        ></v-checkbox-->
       </v-list-item-title>
       </v-list-item-content>
     </v-list-item>
@@ -130,10 +124,10 @@
       return {
         drawer: null,
         items: [
-          { text: 'LOG IN' },
-          { text: '新着' },
-          { text: '優先度' },
-          { text: '自分の物だけ' },
+          { text: 'LOG IN', link: '/login' },
+          { text: '新着', link: '/login' },
+          { text: '優先度', link: '/login' },
+          { text: '自分の物だけ', link: '/login' },
         ],
         todo_items: [
             { title: 'todo1', isChecked: true },
