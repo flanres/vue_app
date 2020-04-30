@@ -54,7 +54,7 @@
           :append-icon-cb="() => {}"
           placeholder="Input TODO..."
           v-model="newTask"
-          v-on:keyup.enter="createTask(newTask)"
+          v-on:keyup.enter="createTask"
           single-line
           append-icon="mdi-magnify"
           color="white"
@@ -135,10 +135,10 @@ import axios from 'axios';
       return {
         drawer: null,
         items: [
-          { text: 'LOG IN' },
-          { text: '新着' },
-          { text: '優先度' },
-          { text: '自分の物だけ' },
+          { text: 'LOG IN', link: '/login' },
+          { text: '新着', link: '/login' },
+          { text: '優先度', link: '/login' },
+          { text: '自分の物だけ', link: '/login' },
         ],
 
         tasks: [],
@@ -193,36 +193,6 @@ import axios from 'axios';
           console.log(error, response);
         });
       },
-
-      // ブラウザのみで動作させる場合のメソッド
-      /*
-      addTodo: function(newTitle){
-        this.todo_items.push({
-          title: newTitle,
-          isChecked: false
-        });
-        this.newItemTitle = ''; //追加
-        this.saveTodo(); //ブラウザに保存
-      },
-
-      deleteTodo: function(){
-        this.todo_items = this.todo_items.filter(function (item) {
-          return item.isChecked === false; //
-        });
-        this.saveTodo(); //ブラウザに保存
-      },
-
-      saveTodo: function(){
-        localStorage.setItem('todo_items', JSON.stringify(this.todo_items));
-      },
-
-      loadTodo: function(){
-        this.todo_items = JSON.parse( localStorage.getItem('todo_items') );
-        if( !this.todo_items ){
-          this.todo_items = [];
-        }
-      },
-      */
     },
 
     // 初期表示
