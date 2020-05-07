@@ -1,10 +1,13 @@
 # README
+## 要件定義
 Vue.jsによるTODOアプリ  
 AWS上にデプロイする  
 特定の契機でRails側との非同期通信を行いDBにデータを格納する  
 Vuetifyでデザインする  
 静的解析(rubocop)を導入する  
 Issuesで課題管理を行いPull requestsにて改修する  
+本番環境はproductionブランチにて運用する  
+Rails側はAPI作成する  
 下記に実装済み機能を〇、未実装機能を△に記す
 
 # AWS
@@ -36,7 +39,9 @@ Issuesで課題管理を行いPull requestsにて改修する
 
 ## 機能
 - 〇Vuetifyによるデザイン
+- 〇APIの作成
 - 〇rubocopによる静的解析導入
+- 〇axiosによる非同期通信処理の実装
 - △ユーザのCRUD機能(新規作成、編集、削除、一覧、検索)
 - △ユーザ一覧のページネーション機能
 - △TODO検索のインクリメントサーチ機能
