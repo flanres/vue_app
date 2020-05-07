@@ -5,7 +5,7 @@ AWS上にデプロイする
 特定の契機でRails側との非同期通信を行いDBにデータを格納する  
 ActionCableを使用してリアルタイムで複数人のTODOの編集ができる  
 Vuetifyでデザインする  
-LOGINしない場合はブラウザのLocalstrageにデータを格納しTODOを作成する  
+LOGINしない場合は各ブラウザにデータを格納しTODOを作成する  
 静的解析(rubocop)を導入する  
 Issuesで課題管理を行いPull requestsにて改修する  
 本番環境はproductionブランチにて運用する  
