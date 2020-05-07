@@ -3,6 +3,7 @@
 Vue.jsによるTODOアプリ  
 AWS上にデプロイする  
 特定の契機でRails側との非同期通信を行いDBにデータを格納する  
+ActionCableを使用してリアルタイムで複数人のTODOの編集ができる  
 Vuetifyでデザインする  
 LOGINしない場合はブラウザのLocalstrageにデータを格納しTODOを作成する  
 静的解析(rubocop)を導入する  
@@ -43,6 +44,7 @@ Rails側はAPI作成する
 - 〇APIの作成
 - 〇rubocopによる静的解析導入
 - 〇axiosによる非同期通信処理の実装
+- 〇ActionCableを使用した複数人でのリアルタイム編集
 - 〇LOGINの有無による表示ページの切り替え(Vueコンポーネント)
 - △ユーザのCRUD機能(新規作成、編集、削除、一覧、検索)
 - △ユーザ一覧のページネーション機能
