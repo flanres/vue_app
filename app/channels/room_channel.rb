@@ -7,11 +7,6 @@ class RoomChannel < ApplicationCable::Channel
     # Any cleanup needed when channel is unsubscribed
   end
 
-  def speak(data)
-    # Vue.jsから受け取ったdataをチャンネルに流す
-    ActionCable.server.broadcast "message_channel", name: data["task"], req: data["req"], index: data["index"], is_done: data["is_done"]
-  end
-
   def create_speak(data)
     # サーバ側でブロードキャストデータを作成する
     push_data = {}
@@ -20,5 +15,15 @@ class RoomChannel < ApplicationCable::Channel
     push_data.store("is_done", data["created_task"]["is_done"])
     # Vue.jsから受け取ったdataをチャンネルに流す
     ActionCable.server.broadcast "message_channel", name: push_data, req: 'create'
+  end
+
+  def update_speak(data)
+    # Vue.jsから受け取ったdataをチャンネルに流す
+    ActionCable.server.broadcast "message_channel", index: data["update_task_index"], req: 'update', is_done: data["is_done"]
+  end
+
+  def delete_speak(data)
+    # Vue.jsから受け取ったdataをチャンネルに流す
+    ActionCable.server.broadcast "message_channel", index: data["delete_task_index"], req: 'delete'
   end
 end

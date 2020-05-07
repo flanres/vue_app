@@ -171,42 +171,22 @@ import axios from 'axios';
     },
 
     methods: {
-      speak(req, index) {
-        this.RoomChannel.perform('speak', { 
-          task: this.newTask,
-          req: req,
-          index: index,
-          if ( index ){
-            is_done: this.tasks[index].is_done
-          }
-        });
-      },
-
       create_speak(res) {
         this.RoomChannel.perform('create_speak', { 
           created_task: res
         });
       },
 
-      update_speak(req, index) {
-        this.RoomChannel.perform('speak', { 
-          task: this.newTask,
-          req: req,
-          index: index,
-          if ( index ){
-            is_done: this.tasks[index].is_done
-          }
+      update_speak(index) {
+        this.RoomChannel.perform('update_speak', { 
+          update_task_index: index,
+          is_done: this.tasks[index].is_done
         });
       },
 
-      delete_speak(req, index) {
-        this.RoomChannel.perform('speak', { 
-          task: this.newTask,
-          req: req,
-          index: index,
-          if ( index ){
-            is_done: this.tasks[index].is_done
-          }
+      delete_speak(index) {
+        this.RoomChannel.perform('delete_speak', { 
+          delete_task_index: index
         });
       },
 
@@ -217,7 +197,6 @@ import axios from 'axios';
         // apiへ追加リクエスト
         axios.post('/api/tasks', { task: { name: this.newTask} }).then((response) => {
           this.create_speak(response.data);
-          //this.tasks.unshift(response.data);
           this.newTask= '';
         }, (error) => {
           console.log(error, response);
@@ -238,7 +217,7 @@ import axios from 'axios';
       updateTask: function(task_id, index){
         // apiへ更新リクエスト
         axios.put('/api/tasks/' + task_id).then((response) => {
-          this.speak('update', index);
+          this.update_speak(index);
         }, (error) => {
           console.log(error);
         });
@@ -247,8 +226,7 @@ import axios from 'axios';
       deleteTask: function(task_id, index){
         // apiへ削除リクエスト
         axios.delete('/api/tasks/' + task_id).then((response) => {
-          this.speak('delete', index);
-          //this.tasks.splice(index, 1);
+          this.delete_speak(index);
         }, (error) => {
           console.log(error, response);
         });
