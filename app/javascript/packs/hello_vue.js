@@ -11,9 +11,12 @@ import "vuetify/dist/vuetify.min.css";
 import App from '../app.vue'
 import Router from '../router/router.js'
 import Store  from '../store/store.js'
+import ActionCable from 'actioncable';
 
 Vue.use(Vuetify);
 const vuetify = new Vuetify();
+const cable = ActionCable.createConsumer('ws:localhost:3000/cable');
+Vue.prototype.$cable = cable;
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Vue({
