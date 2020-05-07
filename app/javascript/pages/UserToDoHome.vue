@@ -77,7 +77,7 @@
         <span v-bind:class="{done: task.is_done}">{{ task.name }}</span>
       </label>
 
-      <v-btn color="red" v-on:click="deleteTask(task.id, index)">削除</v-btn>
+      <v-btn color="red" v-model="task.id" v-on:click="deleteTask(task.id, index)">削除</v-btn>
         <!--v-checkbox
           v-model= "item.isChecked"
           :label = "item.title"
@@ -127,10 +127,6 @@ import axios from 'axios';
       source: String,
     },
 
-    created () {
-      this.$vuetify.theme.dark = true
-    },
-
     data: function () {
       return {
         drawer: null,
@@ -152,14 +148,76 @@ import axios from 'axios';
       }
     },
 
+    created() {
+      this.RoomChannel = this.$cable.subscriptions.create( "RoomChannel", {
+        received: (data) => {
+          switch (data.req){
+            case 'create':
+              this.tasks.unshift(data.name);
+              break;
+            case 'read':
+              // nothing
+              break;
+            case 'update':
+              this.tasks[data.index].is_done = data.is_done;
+              break;
+            case 'delete':
+              this.tasks.splice(data.index, 1);
+              break;
+          }
+          console.log(data.req);
+        },
+      })
+    },
+
     methods: {
-      createTask: function(newTitle){
+      speak(req, index) {
+        this.RoomChannel.perform('speak', { 
+          task: this.newTask,
+          req: req,
+          index: index,
+          if ( index ){
+            is_done: this.tasks[index].is_done
+          }
+        });
+      },
+
+      create_speak(res) {
+        this.RoomChannel.perform('create_speak', { 
+          created_task: res
+        });
+      },
+
+      update_speak(req, index) {
+        this.RoomChannel.perform('speak', { 
+          task: this.newTask,
+          req: req,
+          index: index,
+          if ( index ){
+            is_done: this.tasks[index].is_done
+          }
+        });
+      },
+
+      delete_speak(req, index) {
+        this.RoomChannel.perform('speak', { 
+          task: this.newTask,
+          req: req,
+          index: index,
+          if ( index ){
+            is_done: this.tasks[index].is_done
+          }
+        });
+      },
+
+      createTask: function(){
         // テキストボックスが空の場合はreturnして終了
         if(this.newTask== '') return;
 
         // apiへ追加リクエスト
         axios.post('/api/tasks', { task: { name: this.newTask} }).then((response) => {
-          this.tasks.unshift(response.data);
+          this.create_speak(response.data);
+          //this.tasks.unshift(response.data);
           this.newTask= '';
         }, (error) => {
           console.log(error, response);
@@ -177,9 +235,10 @@ import axios from 'axios';
         });
       },
 
-      updateTask: function(task_id){
+      updateTask: function(task_id, index){
         // apiへ更新リクエスト
         axios.put('/api/tasks/' + task_id).then((response) => {
+          this.speak('update', index);
         }, (error) => {
           console.log(error);
         });
@@ -188,7 +247,8 @@ import axios from 'axios';
       deleteTask: function(task_id, index){
         // apiへ削除リクエスト
         axios.delete('/api/tasks/' + task_id).then((response) => {
-          this.tasks.splice(index, 1);
+          this.speak('delete', index);
+          //this.tasks.splice(index, 1);
         }, (error) => {
           console.log(error, response);
         });
@@ -197,6 +257,7 @@ import axios from 'axios';
 
     // 初期表示
     mounted: function(){
+      this.$vuetify.theme.dark = true
       this.readTask();
     },
   }
