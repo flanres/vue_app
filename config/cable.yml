@@ -5,6 +5,7 @@ test:
   adapter: test
 
 production:
-  adapter: redis
-  url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>
-  channel_prefix: vue_app_production
+  adapter: async
+  #  url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>
+  #url: <%= ENV.fetch("REDIS_URL") { "redis://ec2-13-115-207-26.ap-northeast-1.compute.amazonaws.com:6379/1" } %>
+  #channel_prefix: vue_app_production

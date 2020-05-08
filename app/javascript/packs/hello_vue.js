@@ -15,7 +15,9 @@ import ActionCable from 'actioncable';
 
 Vue.use(Vuetify);
 const vuetify = new Vuetify();
-const cable = ActionCable.createConsumer('ws:localhost:3000/cable');
+const cable = ActionCable.createConsumer('http://ec2-13-115-207-26.ap-northeast-1.compute.amazonaws.com/cable');
+//const cable = ActionCable.createConsumer('ws:http://ec2-13-115-207-26.ap-northeast-1.compute.amazonaws.com/cable');
+//const cable = ActionCable.createConsumer('ws:localhost:3000/cable');
 Vue.prototype.$cable = cable;
 
 document.addEventListener('DOMContentLoaded', () => {
