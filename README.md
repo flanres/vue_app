@@ -21,6 +21,7 @@ Rails側はAPI作成する
 ## 開発環境
 - Ruby 2.6.3
 - rails 6.0.2.2
+- actioncable 6.0.2.2
 - vue.js 2.6.11
 - vuetify 2.2.20
 
