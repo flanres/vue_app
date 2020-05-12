@@ -12,7 +12,8 @@ Issuesで課題管理を行いPull requestsにて改修する
 Rails側はAPI作成する  
 下記に実装済み機能を〇、未実装機能を△に記す
 
-# AWS
+# AWS構成
+![vue_app_image](https://user-images.githubusercontent.com/49616029/81660730-148c1d00-9476-11ea-9c11-7090b2668047.png)
 
 # AWS上での動作確認(GIF)
 ![vue_app_new](https://user-images.githubusercontent.com/49616029/81660148-5b2d4780-9475-11ea-84ba-f563796f26ca.gif)
