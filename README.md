@@ -11,22 +11,22 @@
 
 ## 設計
 - フロントエンドはVue.jsで構成する
- - RailsのViewファイル内にERBによる記載はしない
- - バックエンドとはJsonによる非同期通信をaxiosで行う
- - Vue RouterによってSPAを実現する
+  - RailsのViewファイル内にERBによる記載はしない
+  - バックエンドとはJsonによる非同期通信をaxiosで行う
+  - Vue RouterによってSPAを実現する
 - 特定の契機でRails側との非同期通信を行いDBにデータを格納する
- - TODOのタスクをCRUD時にaxiosによる非同期通信を行う
- - 初回表示時にREAD処理としてaxiosによる非同期通信をおこなう
- - 初回表示時にWebsocketを作成する
+  - TODOのタスクをCRUD時にaxiosによる非同期通信を行う
+  - 初回表示時にREAD処理としてaxiosによる非同期通信をおこなう
+  - 初回表示時にWebsocketを作成する
 - ActionCableを使用してリアルタイムで複数人のTODOの編集ができる
- - チャットアプリ用GemのActionCableをRailsとVue.jsに導入する
- - TODOタスクのCRUD時に、変更を他の接続者に対しブロードキャストし通知する
+  - チャットアプリ用GemのActionCableをRailsとVue.jsに導入する
+  - TODOタスクのCRUD時に、変更を他の接続者に対しブロードキャストし通知する
 - ログインしない場合は各ブラウザにデータを格納しTODOを作成する
- - ログインしない場合はVue.js内でデータを保持し、Railsとの通信は行わない
- - ログインしている場合としてない場合はVue RouterのRoutingにて切り替える
+  - ログインしない場合はVue.js内でデータを保持し、Railsとの通信は行わない
+  - ログインしている場合としてない場合はVue RouterのRoutingにて切り替える
 - Rails側はAPIを作成する
- - TODOタスクに対してAPIを作成する
- - 各リクエストに対して対応するJsonを返却する
+  - TODOタスクに対してAPIを作成する
+  - 各リクエストに対して対応するJsonを返却する
 
 ## AWS構成
 ![vue_app_image](https://user-images.githubusercontent.com/49616029/81660730-148c1d00-9476-11ea-9c11-7090b2668047.png)
