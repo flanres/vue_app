@@ -1,24 +1,40 @@
 # README
-## 要件定義
-Vue.jsによるTODOアプリ  
-AWS上にデプロイする  
-特定の契機でRails側との非同期通信を行いDBにデータを格納する  
-ActionCableを使用してリアルタイムで複数人のTODOの編集ができる  
-Vuetifyでデザインする  
-LOGINしない場合は各ブラウザにデータを格納しTODOを作成する  
-静的解析(rubocop)を導入する  
-Issuesで課題管理を行いPull requestsにて改修する  
-本番環境はproductionブランチにて運用する  
-Rails側はAPI作成する  
-下記に実装済み機能を〇、未実装機能を△に記す
+## アプリケーション概要
+複数人がリアルタイムで編集できるTODOアプリケーション
 
-# AWS構成
+## 要件定義
+- フロントエンドはVue.jsで構成する   
+- 特定の契機でRails側との非同期通信を行いDBにデータを格納する  
+- ActionCableを使用してリアルタイムで複数人のTODOの編集ができる  
+- LOGINしない場合は各ブラウザにデータを格納しTODOを作成する  
+- Rails側はAPIを作成する  
+
+## 設計
+- フロントエンドはVue.jsで構成する
+ - RailsのViewファイル内にERBによる記載はしない
+ - バックエンドとはJsonによる非同期通信をaxiosで行う
+ - Vue RouterによってSPAを実現する
+- 特定の契機でRails側との非同期通信を行いDBにデータを格納する
+ - TODOのタスクをCRUD時にaxiosによる非同期通信を行う
+ - 初回表示時にREAD処理としてaxiosによる非同期通信をおこなう
+ - 初回表示時にWebsocketを作成する
+- ActionCableを使用してリアルタイムで複数人のTODOの編集ができる
+ - チャットアプリ用GemのActionCableをRailsとVue.jsに導入する
+ - TODOタスクのCRUD時に、変更を他の接続者に対しブロードキャストし通知する
+- ログインしない場合は各ブラウザにデータを格納しTODOを作成する
+ - ログインしない場合はVue.js内でデータを保持し、Railsとの通信は行わない
+ - ログインしている場合としてない場合はVue RouterのRoutingにて切り替える
+- Rails側はAPIを作成する
+ - TODOタスクに対してAPIを作成する
+ - 各リクエストに対して対応するJsonを返却する
+
+## AWS構成
 ![vue_app_image](https://user-images.githubusercontent.com/49616029/81660730-148c1d00-9476-11ea-9c11-7090b2668047.png)
 
-# AWS上での動作確認(GIF)
+## AWS上での動作確認(GIF)
 ![vue_app_new](https://user-images.githubusercontent.com/49616029/81660148-5b2d4780-9475-11ea-84ba-f563796f26ca.gif)
 
-## 開発環境
+## 技術スタック
 - Ruby 2.6.3
 - rails 6.0.2.2
 - actioncable 6.0.2.2
@@ -45,6 +61,7 @@ Rails側はAPI作成する
   - rubocop-rspec (1.30.1)
 
 ## 機能
+下記に実装済み機能を〇、未実装機能を△に記す
 - 〇Vuetifyによるデザイン
 - 〇APIの作成
 - 〇rubocopによる静的解析導入
