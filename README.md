@@ -14,8 +14,8 @@ Rails側はAPI作成する
 
 # AWS
 
-# AWS上での動作確認
-![vue_app](https://user-images.githubusercontent.com/49616029/81659024-47cdac80-9474-11ea-917f-0ed746abe270.gif)
+# AWS上での動作確認(GIF)
+![vue_app_new](https://user-images.githubusercontent.com/49616029/81660148-5b2d4780-9475-11ea-84ba-f563796f26ca.gif)
 
 ## 開発環境
 - Ruby 2.6.3
