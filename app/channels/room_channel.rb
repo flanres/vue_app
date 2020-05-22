@@ -19,7 +19,9 @@ class RoomChannel < ApplicationCable::Channel
 
   def update_speak(data)
     # Vue.jsから受け取ったdataをチャンネルに流す
-    ActionCable.server.broadcast "message_channel", index: data["update_task_index"], req: 'update', is_done: data["is_done"]
+    ActionCable.server.broadcast "message_channel", index: data["update_task_index"],
+                                                    req: 'update',
+                                                    is_done: data["is_done"]
   end
 
   def delete_speak(data)

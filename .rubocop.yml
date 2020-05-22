@@ -5,6 +5,7 @@ Rails:
   Enabled: true
 
 AllCops:
+  TargetRubyVersion: 2.6.3
   #以下にはrubocopで検証したくないフォルダを指定する
   Exclude:
     - 'db/**/*'

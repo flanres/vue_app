@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Api::TasksController, type: :request do
   describe "GET tasks" do
-    let(:create_task){ create(:task) }
+    let(:create_task) { create(:task) }
 
     it "returns http success" do
       get '/api/tasks'
@@ -18,21 +18,18 @@ RSpec.describe Api::TasksController, type: :request do
   end
 
   xdescribe "POST tasks" do
-    let(:attributes_for_task){ attributes_for(:task) }
+    let(:attributes_for_task) { attributes_for(:task) }
 
     it "returns http success" do
-      binding.pry
-      #post '/api/tasks', task: attributes_for_task, name: attributes_for_task[:name], is_done: attributes_for_task[:is_done]
-      post '/api/tasks', {"task"=>{"name"=>"test2"}}
-
+      post '/api/tasks', { "task" => { "name" => "test2" } }
       expect(response.status).to eq 201
     end
 
     it "returns Json data" do
-      post '/api/tasks', task: attributes_for_task, name: attributes_for_task[:name], is_done: attributes_for_task[:is_done]
+      post '/api/tasks', task: attributes_for_task, name: attributes_for_task[:name],
+                         is_done: attributes_for_task[:is_done]
       json = JSON.parse(response.body)
       expect(attributes_for_task[:name]).to eq json['name']
     end
   end
-
 end
